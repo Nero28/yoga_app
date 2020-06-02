@@ -7,7 +7,7 @@ window.addEventListener('DOMContentLoaded', function () {
         tabContent = document.querySelectorAll('.info-tabcontent');
 
 
-    function hideTabContent(a) {
+    const hideTabContent = (a) => {
         for (let i = a; i < tabContent.length; i++) {
             tabContent[i].classList.remove('show');
             tabContent[i].classList.add('hide');
@@ -17,7 +17,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
     hideTabContent(1);
 
-    function showTabContent(b) {
+    const showTabContent = (b) => {
         if (tabContent[b].classList.contains('hide')) {
             tabContent[b].classList.remove('hide');
             tabContent[b].classList.add('show');
@@ -42,7 +42,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
     let deadline = '2020-06-30';
 
-    function getTimeRemaining(endtime) {
+    const getTimeRemaining = (endtime) => {
         //quantity mlsc
         let t = Date.parse(endtime) - Date.parse(new Date()),
             seconds = Math.floor((t / 1000) % 60),
@@ -72,7 +72,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
 
 
-    function setClock(id, endtime) {
+    const setClock = (id, endtime) => {
         let timer = document.getElementById(id),
             hours = timer.querySelector('.hours'),
             minutes = timer.querySelector('.minutes'),
@@ -98,5 +98,55 @@ window.addEventListener('DOMContentLoaded', function () {
     };
 
     setClock('timer', deadline);
+
+
+    //Modal
+
+    let more = document.querySelector('.more'),
+        overlay = document.querySelector('.overlay'),
+        close = document.querySelector('.popup-close');
+
+
+    more.addEventListener('click', function () {
+        overlay.style.display = 'block';
+        this.classList.add('more-splash');
+        document.body.style.overflow = 'hidden';
+    });
+
+    close.addEventListener('click', function () {
+        overlay.style.display = 'none';
+        more.classList.remove('more-splash');
+        document.body.style.overflow = '';
+    })
+
+
+    //          let age = document.getElementById('age');
+
+    //  function showUser(surname, name) {
+    //           alert("Пользователь " + surname + " " + name + ", его возраст " + this.value);
+    //  }
+
+    //  showUser.apply(age, ["Скайвокер","Люк"]);
+
+
+
+    class Options {
+        constructor(height, width, bg, fontSize, textAlign) {
+            this.height = height;
+            this.width = width;
+            this.bg = bg;
+            this.fontSize = fontSize;
+            this.textAlign = textAlign;
+        }
+        createDiv(text) {
+            let elem = document.createElement('div');
+            document.body.appendChild(elem);
+            let param = `height:${this.height}px; width:${this.width}px; background-color:${this.bg}; font-size:${this.fontSize}px; text-align:${this.textAlign}`;
+            elem.style.cssText = param;
+    }
+}
+    const newDiv = new Options(50, 50, 'orange', 20, 'center');
+
+    newDiv.createDiv();
 
 });
